@@ -1,14 +1,15 @@
-import Point from "./point";
+import Vector from "./vector";
 import UserInputHandler from "./userInputHandler";
 
 export default class PlayerFish {
-    position: Point;
+    position: Vector;
     heading = 0;
-    history: Point[] = [];
+    speed = 0;
+    history: Vector[] = [];
     readonly historyLength = 5;
     readonly userInputHandler: UserInputHandler;
     constructor() {
-        this.position = new Point(
+        this.position = new Vector(
             window.innerWidth / 2,
             window.innerHeight / 2
         );
@@ -20,19 +21,20 @@ export default class PlayerFish {
 
     step() {
         this.updateHistory();
-        const userVector = this.userInputHandler.userVector();
-        if (userVector.hasLength()) {
-            this.position = this.position.add(
-                userVector.scaleToLength(5)
-            );
-            this.heading = userVector.toHeading();
-        }
+        const direction = this.userInputHandler.directionInput();
+        this.heading += Math.max(-0.1, Math.min(0.1, direction));
+        this.speed += Math.max(0, 0.5 - 0.5 * Math.abs(1 - Math.abs(direction / 10)));
+        this.speed *= 0.98;
+        this.position = this.position.add(
+            new Vector(
+                this.speed * Math.cos(this.heading),
+                this.speed * Math.sin(this.heading)
+            )
+        );
     }
 
     updateHistory() {
         this.history.push(this.position);
-        while (this.history.length > this.historyLength) {
-            this.history = this.history.slice(1);
-        }
+        this.history = this.history.slice(1);
     }
 }

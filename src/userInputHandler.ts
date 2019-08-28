@@ -1,10 +1,8 @@
-import Point from "./point";
-
 export default class UserInputHandler {
-    up = false;
-    down = false;
     left = false;
     right = false;
+    leftCount = 0;
+    rightCount = 0;
     constructor() {
         window.addEventListener("keyup", event => {
             this.setArrow(event.key, false);
@@ -16,12 +14,6 @@ export default class UserInputHandler {
 
     setArrow(key: string, newState: boolean) {
         switch (key) {
-            case "ArrowDown":
-                this.down = newState;
-                break;
-            case "ArrowUp":
-                this.up = newState;
-                break;
             case "ArrowLeft":
                 this.left = newState;
                 break;
@@ -33,9 +25,19 @@ export default class UserInputHandler {
           }
     }
 
-    userVector() {
-        const xDiff = +this.right-+this.left;
-        const yDiff = +this.down-+this.up;
-        return new Point(xDiff, yDiff).unitVector();
+    directionInput() {
+        if (this.left && !this.right) {
+            this.rightCount = 0;
+            this.leftCount++;
+        }
+        else if (this.right && !this.left) {
+            this.leftCount = 0;
+            this.rightCount++;
+        }
+        else {
+            this.leftCount = 0;
+            this.rightCount = 0;
+        }
+        return this.rightCount - this.leftCount;
     }
 }

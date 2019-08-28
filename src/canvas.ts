@@ -1,5 +1,5 @@
 import PlayerFish from "./playerFish";
-import Point from "./point";
+import Vector from "./vector";
 
 export default class Canvas {
     canvas: HTMLCanvasElement;
@@ -28,7 +28,7 @@ export default class Canvas {
         this.drawPlayerBeak(player);
     }
 
-    drawPlayerTail(points: Point[]) {
+    drawPlayerTail(points: Vector[]) {
         points.forEach((point, i) => {
             this.drawPlayerSegment(
                 point,
@@ -37,11 +37,11 @@ export default class Canvas {
         });
     }
 
-    drawPlayerBody(position: Point) {
+    drawPlayerBody(position: Vector) {
         this.drawPlayerSegment(position, this.fishSize);
     }
 
-    drawPlayerSegment(position: Point, radius: number) {
+    drawPlayerSegment(position: Vector, radius: number) {
         this.ctx.beginPath();
         this.ctx.arc(
             position.x,
