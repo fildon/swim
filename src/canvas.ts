@@ -21,6 +21,11 @@ export default class Canvas {
     }
 
     drawPlayer(player: PlayerFish) {
+        this.drawPlayerBody(player);
+        this.drawPlayerBeak(player);
+    }
+
+    drawPlayerBody(player: PlayerFish) {
         this.ctx.beginPath();
         this.ctx.arc(
             player.position.x,
@@ -29,6 +34,18 @@ export default class Canvas {
             0, 2 * Math.PI
         );
         this.ctx.fillStyle = 'red';
+        this.ctx.fill();
+    }
+
+    drawPlayerBeak(player: PlayerFish) {
+        this.ctx.beginPath();
+        this.ctx.arc(
+            player.position.x + 10 * Math.cos(player.heading),
+            player.position.y + 10 * Math.sin(player.heading),
+            2,
+            0, 2 * Math.PI
+        );
+        this.ctx.fillStyle = 'black';
         this.ctx.fill();
     }
 }

@@ -3,11 +3,10 @@ import UserInputHandler from "./userInputHandler";
 
 export default class PlayerFish {
     position: Point;
-    heading: number;
+    heading = 0;
     userInputHandler: UserInputHandler;
     constructor() {
         this.position = new Point(window.innerWidth / 2, window.innerHeight / 2);
-        this.heading = 0;
         this.userInputHandler = new UserInputHandler();
     }
 

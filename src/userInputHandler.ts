@@ -36,6 +36,6 @@ export default class UserInputHandler {
     userVector() {
         const xDiff = +this.right-+this.left;
         const yDiff = +this.down-+this.up;
-        return new Point(xDiff, yDiff);
+        return new Point(xDiff, yDiff).unitVector();
     }
 }
