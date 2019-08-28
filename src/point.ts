@@ -18,8 +18,16 @@ export default class Point {
     }
 
     unitVector() {
-        return this.length
-            ? new Point(this.x / this.length, this.y / this.length)
-            : this;
+        return this.scaleToLength(1);
+    }
+
+    scaleToLength(length: number) {
+        return this.length ?
+            this.scaleByScalar(length / this.length) :
+            this;
+    }
+
+    scaleByScalar(scale: number) {
+        return new Point(this.x * scale, this.y * scale);
     }
 }
