@@ -1,5 +1,5 @@
-import SwimStart from "./swimStart";
+import SwimController from "./swimController";
 
 document.addEventListener('DOMContentLoaded', () => {
-    new SwimStart().start();
+    new SwimController().start();
 }, false);
